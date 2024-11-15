@@ -4,7 +4,7 @@ version: 1.0.0
 readme: README.md
 authors:
 - Ingo Weinmann <mail@ingoweinmann.de>
-description: Ansible roles
+description: Ansible base collection
 license:
 - GPL-2.0-or-later
 license_file: ''
