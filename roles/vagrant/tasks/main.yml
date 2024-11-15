@@ -1,0 +1,6 @@
+---
+# tasks file for vagrant
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
