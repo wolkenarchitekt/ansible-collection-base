@@ -11,8 +11,5 @@ license:
 license_file: ''
 tags: []
 dependencies: {}
-repository: http://github.com/wolkenarchitekt/ansible_collections
-#documentation: http://docs.example.com
-#homepage: http://example.com
-#issues: http://example.com/issue/tracker
+repository: http://github.com/wolkenarchitekt/ansible-collection-base
 build_ignore: []
