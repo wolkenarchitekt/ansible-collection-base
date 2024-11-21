@@ -1,0 +1,102 @@
+- name: 'Create nvidia driver dir'
+  file:
+    path: '/usr/local/src/nvidia-driver'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+  become: true
+
+- name: 'Copy nvidia driver'
+  ansible.builtin.copy:
+    src: 'files/NVIDIA-Linux-x86_64-550.90.07.run'
+    dest: '/usr/local/src/nvidia-driver'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0755
+  become: true
+
+# Install gcc
+- name: 'Install packages required for nvidia driver installation'
+  apt:
+    pkg:
+      - build-essential
+      - libglvnd-dev
+      - pkg-config
+  become: true
+
+- name: 'Check if nvidia-smi is available'
+  stat:
+    path: /usr/bin/nvidia-smi
+  register: nvidia_smi
+
+- name: Populate service facts
+  service_facts:
+
+- name: Stop GDM3
+  systemd:
+    name: gdm3
+    state: stopped
+  become: true
+  when: >
+    ansible_connection != "local" and
+    not nvidia_smi.stat.exists and 
+    'docker' in services and 
+    ansible_connection != "local"
+
+- name: Create blacklist-nouveau.conf file
+  copy:
+    dest: /etc/modprobe.d/blacklist-nouveau.conf
+    content: |
+      blacklist nouveau
+      options nouveau modeset=0
+  register: blacklist_nouveau
+  become: true
+
+- name: Regenerate the kernel initramfs
+  command: update-initramfs -u
+  become: true
+  notify:
+    - Reboot system
+  when: blacklist_nouveau.changed
+
+- name: 'Flush handlers to force reboot'
+  meta: flush_handlers
+
+- name: Check if i386 architecture is enabled
+  shell: dpkg --print-foreign-architectures | grep -q '^i386$'
+  register: i386_arch_enabled
+  ignore_errors: true
+  changed_when: false
+  become: true
+
+- name: Add i386 architecture
+  command: dpkg --add-architecture i386
+  when: i386_arch_enabled.rc != 0
+  become: true
+
+- name: Install libc6:i386
+  apt:
+    name: libc6-i386
+    state: present
+  become: true
+
+- name: 'Install nvidia driver'
+  # -q: quiet
+  # -a: accept license
+  # -n: suppress questions
+  # -X: update xorg.conf
+  # -s: disable ncurses
+  ansible.builtin.command: /usr/local/src/nvidia-driver/NVIDIA-Linux-x86_64-550.90.07.run -q -a -n -X -s
+  become: true
+  when: not nvidia_smi.stat.exists
+  notify: 'Start GDM3'
+
+- name: Check NVIDIA driver version
+  shell: nvidia-smi --query-gpu=driver_version --format=csv,noheader
+  register: nvidia_driver_version
+  changed_when: false
+
+- name: Throw error if NVIDIA driver version is not 550.90.07
+  fail:
+    msg: "NVIDIA driver version is not 550.90.07. Current version is {{ nvidia_driver_version.stdout }}"
+  when: nvidia_driver_version.stdout != "550.90.07"

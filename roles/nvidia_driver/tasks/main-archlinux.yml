@@ -1,0 +1,5 @@
+- name: Install nvidia drivers
+  community.general.pacman:
+    name:
+      - nvidia
+  become: true

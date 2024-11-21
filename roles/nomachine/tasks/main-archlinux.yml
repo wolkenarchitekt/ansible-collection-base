@@ -1,0 +1,57 @@
+- name: 'Install aur packages'
+  include_tasks: arch-aur-install.yml
+  loop:
+    - 'nomachine'
+
+#
+#
+#- name: 'Create nomachine src dir'
+#  file:
+#    path: '/usr/local/src/nomachine'
+#    state: directory
+#    owner: '{{ ansible_user }}'
+#    group: '{{ ansible_user }}'
+#  become: true
+#
+#- name: 'Clone Nomachine pkg repo'
+#  ansible.builtin.git:
+#    repo: 'https://aur.archlinux.org/nomachine.git'
+#    dest: '/usr/local/src/nomachine'
+#    accept_hostkey: true
+#    force: true
+#  become: true
+#  become_user: '{{ ansible_user }}'
+#
+#- name: 'Check if nomachine was built'
+#  stat:
+#    path: /usr/local/src/nomachine/nomachine-8.11.3-1-x86_64.pkg.tar.zst
+#  register: nomachine_zst
+#
+#- name: 'Build nomachine package'
+#  ansible.builtin.command: makepkg -si --noconfirm
+#  args:
+#    chdir: '/usr/local/src/nomachine'
+#  become_user: '{{ ansible_user }}'
+#  become: true
+#  when: not nomachine_zst.stat.exists
+#
+#- name: 'Install nomachine'
+#  ansible.builtin.command: pacman -U --needed nomachine-8.11.3-1-x86_64.pkg.tar.zst
+#  args:
+#    chdir: '/usr/local/src/nomachine'
+#  become: true
+
+
+#
+#
+#- name: 'Download Nomachine'
+#  get_url:
+#    url: 'https://download.nomachine.com/download/8.11/Linux/nomachine_8.11.3_4_amd64.deb'
+#    dest: '{{ ansible_env.HOME }}/Downloads/nomachine_8.11.3_4_amd64.deb'
+#  become: true
+#  become_user: '{{ ansible_user }}'
+#
+#- name: 'Install Nomachine'
+#  apt:
+#    deb: '{{ ansible_env.HOME }}/Downloads/nomachine_8.11.3_4_amd64.deb'
+#  become: true

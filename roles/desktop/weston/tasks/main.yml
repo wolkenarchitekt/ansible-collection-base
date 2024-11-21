@@ -1,0 +1,36 @@
+- name: Update package list
+  apt:
+    update_cache: yes
+  become: true
+
+- name: 'Install Missionplanner packages'
+  apt:
+    pkg:
+      -
+      - ca-certificates
+    install_recommends: false
+  become: true
+
+- name: Create config directory for Weston
+  file:
+    path: /home/{{ ansible_user }}/.config
+    state: directory
+    mode: '0755'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Create weston.ini
+  template:
+    src: weston.ini.j2
+    dest: /home/{{ ansible_user }}/.config/weston.ini
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Create start script
+  template:
+    src: start-wayland.sh.j2
+    dest: /home/{{ ansible_user }}/start-wayland.sh
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'

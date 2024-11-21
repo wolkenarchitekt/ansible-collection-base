@@ -1,0 +1,31 @@
+- name: 'Install pipx'
+  apt: pkg=pipx
+  tags: pcimapper
+
+- name: 'Create pcimapper dir'
+  file:
+    path: '/usr/local/src/pcimapper'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+  become: true
+  tags: pcimapper
+
+- name: 'Copy pcimapper'
+  ansible.builtin.copy:
+    src: 'files/pcimapper/'
+    dest: '/usr/local/src/pcimapper'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0644
+    backup: true
+  become: true
+  register: pcimapper_src
+
+- name: 'Install pcimapper'
+  community.general.pipx:
+    name: '/usr/local/src/pcimapper'
+    force: true
+#  when: pcimapper_src.changed
+  become_user: '{{ ansible_user }}'
+  tags: pcimapper

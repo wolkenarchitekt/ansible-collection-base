@@ -1,0 +1,109 @@
+- name: 'Install required packages'
+  apt:
+    pkg:
+      - git
+      - python3-pip
+
+- name: 'Install empy package'
+  command: python3 -m pip install empy==3.3.4
+
+- name: 'Create ardupilot src dir'
+  file:
+    path: '{{ ardupilot_src_dir }}'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Check if ardupilot was checked out'
+  ansible.builtin.stat:
+    path: '{{ ardupilot_src_dir }}/.git'
+  register: ardupilot
+
+- name: 'Git checkout ardupilot'
+  git:
+    repo: 'https://github.com/ArduPilot/ardupilot.git'
+    dest: '{{ ardupilot_src_dir }}'
+    recursive: yes
+    accept_hostkey: yes
+  ignore_errors: true
+  when: not ardupilot.stat.exists
+  register: ardupilot_installed
+  become_user: '{{ ansible_user }}'
+
+- name: Create backup of .bashrc and .profile
+  copy:
+    src: '{{ item }}'
+    dest: '{{ item }}.bak'
+    backup: yes
+    remote_src: true
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+  with_items:
+    - '{{ ansible_env.HOME }}/.bashrc'
+    - '{{ ansible_env.HOME }}/.profile'
+
+- name: 'Install ardupilot'
+  command: "{{ ardupilot_src_dir }}/Tools/environment_install/install-prereqs-ubuntu.sh -y"
+  become_user: '{{ ansible_user }}'
+  environment:
+    PYENV_VERSION: system
+  tags: install-ardupilot
+
+- name: Restore backup of .bashrc and .profile
+  copy:
+    src: '{{ item }}.bak'
+    dest: '{{ item }}'
+    backup: yes
+    remote_src: true
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+  with_items:
+    - '{{ ansible_env.HOME }}/.bashrc'
+    - '{{ ansible_env.HOME }}/.profile'
+
+- name: 'Create .bashrc.d dir'
+  file:
+    dest: '{{ ansible_env.HOME }}/.bashrc.d'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Configure sitl board'
+  shell: "./waf configure --board sitl"
+  become_user: '{{ ansible_user }}'
+  args:
+    chdir: '{{ ardupilot_src_dir }}'
+
+- name: 'Build rover'
+  shell: "./waf -j{{ ansible_processor_count }} rover"
+  become_user: '{{ ansible_user }}'
+  args:
+    chdir: '{{ ardupilot_src_dir }}'
+  tags: test
+
+- name: 'Build arduplane'
+  shell: "./waf -j{{ ansible_processor_count }} build --target bin/arduplane"
+  become_user: '{{ ansible_user }}'
+  args:
+    chdir: '{{ ardupilot_src_dir }}'
+
+- name: 'Copy locations.txt'
+  ansible.builtin.copy:
+    src: 'files/locations.txt'
+    dest: '{{ ardupilot_src_dir }}/Tools/autotest/locations.txt'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Remove modemmanager'
+  ansible.builtin.apt:
+    name: modemmanager
+    state: absent
+
+- name: Copy ardupilot-sitl service file
+  template:
+    src: templates/ardupilot-sitl.service.j2
+    dest: /etc/systemd/system/ardupilot-sitl.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 'Enable and start ardupilot-sitl service'

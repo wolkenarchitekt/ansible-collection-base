@@ -1,0 +1,52 @@
+- name: 'Perform dist-upgrade'
+  apt:
+    upgrade: dist
+    force_apt_get: true
+    cache_valid_time: 86400 # one day
+    allow_downgrade: true # Avoid errors because of Firefox
+  become: true
+
+- name: 'Remove dependencies that are no longer required'
+  apt:
+    autoremove: yes
+  become: true
+
+- name: 'Check if reboot required'
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: 'Reboot if required'
+  reboot:
+  when: reboot_required_file.stat.exists == true and ansible_virtualization_role != "guest"
+  become: true
+  ignore_errors: true
+
+- name: 'Install latest Ubuntu kernel'
+  apt:
+    pkg:
+      - 'linux-generic-hwe-{{ ansible_distribution_version }}'
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Check if reboot required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: Reboot if required
+  reboot:
+  when: reboot_required_file.stat.exists
+  become: true
+  ignore_errors: true
+
+
+- name: 'Check if snap is installed'
+  command: snap --version
+  register: snap_check
+  ignore_errors: yes
+
+- name: 'Refresh all installed snaps'
+  command: snap refresh
+  become: true
+  when: snap_check.rc == 0

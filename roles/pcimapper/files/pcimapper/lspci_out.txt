@@ -1,0 +1,1186 @@
+Slot:	00:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	12
+
+Slot:	00:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a4]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	13
+
+Slot:	00:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a3]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	14
+
+Slot:	00:00.4
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	15
+
+Slot:	00:01.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	16
+
+Slot:	00:01.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	17
+
+Slot:	00:01.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	18
+
+Slot:	00:01.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	19
+
+Slot:	00:01.4
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	20
+
+Slot:	00:01.5
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	21
+
+Slot:	00:01.6
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	22
+
+Slot:	00:01.7
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0b00]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	23
+
+Slot:	00:02.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a6]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	24
+
+Slot:	00:02.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a7]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	24
+
+Slot:	00:02.4
+Class:	Non-Essential Instrumentation [1300]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3456]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	01
+NUMANode:	0
+IOMMUGroup:	24
+
+Slot:	00:11.0
+Class:	Unassigned class [ff00]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family MROM 0 [a1ec]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family MROM 0 [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	25
+
+Slot:	00:11.5
+Class:	SATA controller [0106]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family SSATA Controller [AHCI mode] [a1d2]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family SSATA Controller [AHCI mode] [7812]
+Rev:	0a
+ProgIf:	01
+NUMANode:	0
+IOMMUGroup:	25
+
+Slot:	00:14.0
+Class:	USB controller [0c03]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family USB 3.0 xHCI Controller [a1af]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family USB 3.0 xHCI Controller [7812]
+Rev:	0a
+ProgIf:	30
+NUMANode:	0
+IOMMUGroup:	26
+
+Slot:	00:14.2
+Class:	Signal processing controller [1180]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family Thermal Subsystem [a1b1]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family Thermal Subsystem [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	26
+
+Slot:	00:16.0
+Class:	Communication controller [0780]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family MEI Controller #1 [a1ba]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family MEI Controller [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	27
+
+Slot:	00:16.1
+Class:	Communication controller [0780]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family MEI Controller #2 [a1bb]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family MEI Controller [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	27
+
+Slot:	00:16.4
+Class:	Communication controller [0780]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family MEI Controller #3 [a1be]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family MEI Controller [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	27
+
+Slot:	00:17.0
+Class:	SATA controller [0106]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family SATA Controller [AHCI mode] [a182]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family SATA Controller [AHCI mode] [7812]
+Rev:	0a
+ProgIf:	01
+NUMANode:	0
+IOMMUGroup:	28
+
+Slot:	00:1c.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family PCI Express Root Port #1 [a190]
+Rev:	fa
+NUMANode:	0
+IOMMUGroup:	29
+
+Slot:	00:1f.0
+Class:	ISA bridge [0601]
+Vendor:	Intel Corporation [8086]
+Device:	Device [a1cb]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	30
+
+Slot:	00:1f.2
+Class:	Memory controller [0580]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family Power Management Controller [a1a1]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family Power Management Controller [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	30
+
+Slot:	00:1f.4
+Class:	SMBus [0c05]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family SMBus [a1a3]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family SMBus [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	30
+
+Slot:	00:1f.5
+Class:	Serial bus controller [0c80]
+Vendor:	Intel Corporation [8086]
+Device:	C620 Series Chipset Family SPI Controller [a1a4]
+SVendor:	Lenovo [17aa]
+SDevice:	C620 Series Chipset Family SPI Controller [7812]
+Rev:	0a
+NUMANode:	0
+IOMMUGroup:	30
+
+Slot:	01:00.0
+Class:	PCI bridge [0604]
+Vendor:	Emulex Corporation [19a2]
+Device:	x1 PCIe Gen2 Bridge[Pilot4] [0120]
+NUMANode:	0
+IOMMUGroup:	31
+
+Slot:	02:00.0
+Class:	VGA compatible controller [0300]
+Vendor:	Matrox Electronics Systems Ltd. [102b]
+Device:	MGA G200e [Pilot] ServerEngines (SEP1) [0522]
+SVendor:	Emulex Corporation [19a2]
+SDevice:	MGA G200e [Pilot] ServerEngines (SEP1) [0101]
+Rev:	42
+NUMANode:	0
+IOMMUGroup:	31
+
+Slot:	17:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	32
+
+Slot:	17:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a4]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	33
+
+Slot:	17:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a3]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	34
+
+Slot:	17:00.4
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	35
+
+Slot:	17:02.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347a]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	8
+
+Slot:	17:03.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347b]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	9
+
+Slot:	17:04.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347c]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	10
+
+Slot:	17:05.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347d]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	11
+
+Slot:	50:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	36
+
+Slot:	50:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a4]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	37
+
+Slot:	50:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a3]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	38
+
+Slot:	50:00.4
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	39
+
+Slot:	50:02.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347a]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	6
+
+Slot:	51:00.0
+Class:	VGA compatible controller [0300]
+Vendor:	NVIDIA Corporation [10de]
+Device:	GA102GL [RTX A6000] [2230]
+SVendor:	NVIDIA Corporation [10de]
+SDevice:	GA102GL [RTX A6000] [1459]
+PhySlot:	1
+Rev:	a1
+NUMANode:	0
+IOMMUGroup:	7
+
+Slot:	51:00.1
+Class:	Audio device [0403]
+Vendor:	NVIDIA Corporation [10de]
+Device:	GA102 High Definition Audio Controller [1aef]
+SVendor:	NVIDIA Corporation [10de]
+SDevice:	GA102 High Definition Audio Controller [1459]
+PhySlot:	1
+Rev:	a1
+NUMANode:	0
+IOMMUGroup:	7
+
+Slot:	89:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	40
+
+Slot:	89:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a4]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	41
+
+Slot:	89:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a3]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	42
+
+Slot:	89:00.4
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	43
+
+Slot:	89:02.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347a]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	4
+
+Slot:	8a:00.0
+Class:	VGA compatible controller [0300]
+Vendor:	NVIDIA Corporation [10de]
+Device:	GA102GL [RTX A6000] [2230]
+SVendor:	NVIDIA Corporation [10de]
+SDevice:	GA102GL [RTX A6000] [1459]
+PhySlot:	3
+Rev:	a1
+NUMANode:	0
+IOMMUGroup:	5
+
+Slot:	8a:00.1
+Class:	Audio device [0403]
+Vendor:	NVIDIA Corporation [10de]
+Device:	GA102 High Definition Audio Controller [1aef]
+SVendor:	NVIDIA Corporation [10de]
+SDevice:	GA102 High Definition Audio Controller [1459]
+PhySlot:	3
+Rev:	a1
+NUMANode:	0
+IOMMUGroup:	5
+
+Slot:	c2:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	44
+
+Slot:	c2:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a4]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	45
+
+Slot:	c2:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a3]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	46
+
+Slot:	c2:00.4
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+NUMANode:	0
+IOMMUGroup:	47
+
+Slot:	c2:02.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347a]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	0
+
+Slot:	c2:04.0
+Class:	PCI bridge [0604]
+Vendor:	Intel Corporation [8086]
+Device:	Device [347c]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	1
+
+Slot:	c3:00.0
+Class:	Serial Attached SCSI controller [0107]
+Vendor:	Adaptec [9005]
+Device:	Smart Storage PQI SAS [028f]
+SVendor:	Lenovo [1d49]
+SDevice:	ThinkSystem RAID 9350-8i 2GB Flash PCIe 12Gb Adapter [0620]
+PhySlot:	9
+Rev:	01
+NUMANode:	0
+IOMMUGroup:	2
+
+    Slot:	c4:00.0
+    Class:	Ethernet controller [0200]
+    Vendor:	Broadcom Inc. and subsidiaries [14e4]
+    Device:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [16d8]
+    SVendor:	Lenovo [17aa]
+    SDevice:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [4048]
+    PhySlot:	0-4
+    Rev:	01
+    NUMANode:	0
+    IOMMUGroup:	3
+
+Slot:	c4:00.1
+Class:	Ethernet controller [0200]
+Vendor:	Broadcom Inc. and subsidiaries [14e4]
+Device:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [16d8]
+SVendor:	Lenovo [17aa]
+SDevice:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [4048]
+PhySlot:	0-4
+Rev:	01
+NUMANode:	0
+IOMMUGroup:	3
+
+Slot:	fe:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3450]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	48
+
+Slot:	fe:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3451]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	49
+
+Slot:	fe:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3452]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	50
+
+Slot:	fe:00.3
+Class:	Host bridge [0600]
+Vendor:	Intel Corporation [8086]
+Device:	Device [0998]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	51
+
+Slot:	fe:00.5
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3455]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	52
+
+Slot:	fe:02.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3440]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	53
+
+Slot:	fe:02.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3441]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	54
+
+Slot:	fe:02.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3442]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	55
+
+Slot:	fe:04.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3440]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	56
+
+Slot:	fe:04.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3441]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	57
+
+Slot:	fe:04.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3442]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	58
+
+Slot:	fe:04.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3443]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	59
+
+Slot:	fe:05.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3445]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	60
+
+Slot:	fe:05.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3446]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	61
+
+Slot:	fe:05.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3447]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	62
+
+Slot:	fe:06.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3445]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	63
+
+Slot:	fe:06.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3446]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	64
+
+Slot:	fe:06.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3447]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	65
+
+Slot:	fe:07.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3445]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	66
+
+Slot:	fe:07.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3446]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	67
+
+Slot:	fe:07.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3447]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	68
+
+Slot:	fe:0b.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3448]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	69
+
+Slot:	fe:0b.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3448]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	69
+
+Slot:	fe:0b.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344b]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	69
+
+Slot:	fe:0c.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344a]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	70
+
+Slot:	fe:0d.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344a]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	71
+
+Slot:	fe:0e.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344a]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	72
+
+Slot:	fe:0f.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344a]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	73
+
+Slot:	fe:1a.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [2880]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	74
+
+Slot:	fe:1b.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [2880]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	75
+
+Slot:	fe:1c.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [2880]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	76
+
+Slot:	fe:1d.0
+Class:	Performance counters [1101]
+Vendor:	Intel Corporation [8086]
+Device:	Device [2880]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	77
+
+Slot:	ff:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	78
+
+Slot:	ff:00.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	79
+
+Slot:	ff:00.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	80
+
+Slot:	ff:00.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	81
+
+Slot:	ff:00.4
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	82
+
+Slot:	ff:00.5
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	83
+
+Slot:	ff:00.6
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	84
+
+Slot:	ff:00.7
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	85
+
+Slot:	ff:01.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	86
+
+Slot:	ff:01.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	87
+
+Slot:	ff:01.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	88
+
+Slot:	ff:01.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	89
+
+Slot:	ff:0a.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	90
+
+Slot:	ff:0a.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	91
+
+Slot:	ff:0a.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	92
+
+Slot:	ff:0a.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	93
+
+Slot:	ff:0a.4
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	94
+
+Slot:	ff:0a.5
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	95
+
+Slot:	ff:0a.6
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	96
+
+Slot:	ff:0a.7
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	97
+
+Slot:	ff:0b.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	98
+
+Slot:	ff:0b.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	99
+
+Slot:	ff:0b.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	100
+
+Slot:	ff:0b.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	101
+
+Slot:	ff:1d.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [344f]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	102
+
+Slot:	ff:1d.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3457]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+NUMANode:	0
+IOMMUGroup:	103
+
+Slot:	ff:1e.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3458]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.1
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [3459]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.2
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345a]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.3
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345b]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.4
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345c]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.5
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345d]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.6
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345e]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+
+Slot:	ff:1e.7
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [345f]
+SVendor:	Intel Corporation [8086]
+SDevice:	Device [0000]
+Rev:	06
+NUMANode:	0
+IOMMUGroup:	104
+

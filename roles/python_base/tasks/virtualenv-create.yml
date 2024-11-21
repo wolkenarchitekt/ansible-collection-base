@@ -1,0 +1,10 @@
+- name: Check if .venv dir is empty
+  find:
+    paths: '{{ venv.dir }}'
+  register: files_found
+
+- name: 'Creating virtualenv {{ venv.dir }}'
+  shell: 'cd {{ venv.dir }}; make virtualenv-create'
+  become: true
+  become_user: '{{ ansible_user }}'
+  when: files_found.matched == 0

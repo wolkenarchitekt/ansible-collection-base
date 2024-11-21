@@ -1,0 +1,74 @@
+# https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html
+#sudo usermod -a -G dialout $USER
+#sudo apt-get remove modemmanager -y
+#sudo apt install gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
+#sudo apt install libqt5gui5 -y
+#sudo apt install libfuse2 -y
+
+- name: 'Add user to dialout group'
+  ansible.builtin.user:
+    name: '{{ ansible_user }}'
+    groups: dialout
+    append: true
+  become: true
+
+- name: 'Install QGroundcontrol packages'
+  apt:
+    pkg:
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-libav
+      - gstreamer1.0-gl
+      - libqt5gui5
+      - libfuse2
+  become: true
+
+- name: 'Create applications dir'
+  file:
+    path: '/home/{{ ansible_user }}/.local/share/applications'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Download QGroundcontrol'
+  get_url:
+    url: 'https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage'
+    dest: '/home/{{ ansible_user }}/.local/share/applications/QGroundControl.AppImage'
+  become: true
+  become_user: '{{ ansible_user }}'
+
+- name: 'Link QGroundcontrol executable'
+  ansible.builtin.file:
+    src: '/home/{{ ansible_user }}/.local/share/applications/QGroundControl.AppImage'
+    dest: /usr/bin/qgroundcontrol
+    mode: 0755
+    state: link
+  become: true
+
+- name: 'Copy QGroundcontrol icon'
+  ansible.builtin.copy:
+    src: 'files/qgroundcontrol_icon.png'
+    dest: '/home/{{ ansible_user }}/.local/share/applications/qgroundcontrol_icon.png'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0644
+    backup: true
+  become: true
+
+- name: 'Create applications dir'
+  file:
+    path: '/home/{{ ansible_user }}/.local/share/applications'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Add QGroundcontrol Desktop entry'
+  template:
+    src: templates/qgroundcontrol.desktop.j2
+    dest: '/home/{{ ansible_user }}/.local/share/applications/qgroundcontrol.desktop'
+
+- name: 'Add QGroundcontrol to GNOME favorites'
+  shell: >
+    gsettings set org.gnome.shell favorite-apps
+    "$(gsettings get org.gnome.shell favorite-apps | sed "s/]$/, 'qgroundcontrol.desktop']/")"
+  become: true
+  become_user: '{{ ansible_user }}'

@@ -1,0 +1,42 @@
+- name: 'Check for installed vagrant plugins'
+  command: 'vagrant plugin list'
+  register: vagrant_plugin_list
+
+- name: 'Install vagrant-env (required for vagrant-libvirt)'
+  ansible.builtin.command: vagrant plugin install vagrant-env
+  become_user: '{{ ansible_user }}'
+
+- block:
+  - name: 'Install vagrant libvirt dependencies'
+    apt:
+      pkg:
+        - ruby-dev
+        - libvirt-dev
+    become: true
+
+  - name: 'Clone vagrant-libvirt repo'
+    ansible.builtin.git:
+      repo: 'https://github.com/vagrant-libvirt/vagrant-libvirt.git'
+      dest: '/usr/local/src/vagrant-libvirt'
+      accept_hostkey: true
+      force: true
+      version: main
+    become: true
+
+  - name: 'Build vagrant-libvirt'
+    ansible.builtin.command: /usr/bin/rake build  # noqa no-handler
+    args:
+      chdir: '/usr/local/src/vagrant-libvirt'
+    become: true
+
+  - name: 'Install nokogiri'
+    community.general.gem:
+      name: nokogiri
+      state: present
+
+  - name: 'Install vagrant libvirt plugin'
+    command: vagrant plugin install /usr/local/src/vagrant-libvirt/pkg/vagrant-libvirt-0.12.3.pre.18.gem
+    become: true
+    become_user: '{{ ansible_user }}'
+    when: ansible_virtualization_role != "guest"
+  when: not 'vagrant-libvirt' in vagrant_plugin_list.stdout

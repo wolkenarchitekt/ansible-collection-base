@@ -1,0 +1,4 @@
+#galaxy_info:  # noqa meta-no-info
+#dependencies:
+#  - role: git
+#  - role: python

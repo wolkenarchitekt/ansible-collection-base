@@ -1,0 +1,11 @@
+[Unit]
+Description=Mavproxy
+After=ardupilot-sitl.target
+
+[Service]
+User={{ mavproxy_user }}
+WorkingDirectory=/home/{{ ardupilot_sitl_user }}
+ExecStart=/usr/bin/screen -DmS mavproxy /home/{{ ardupilot_sitl_user }}/.local/bin/mavproxy.py --master tcp:127.0.0.1:5760 --out udp:127.0.0.1:14550
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,105 @@
+- name: Update APT cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: "Install and configure GNOME Desktop"
+  block:
+    - name: 'Install and configure GNOME Desktop'
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - gnome-control-center
+        - gnome-core
+        - gnome-tweaks
+        - gnome-shell
+        - gnome-terminal
+        - nautilus
+      when: ansible_distribution == 'Debian'
+
+    - name: 'Install and configure GNOME Desktop'
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+         - ubuntu-desktop
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Check if vagrant user exists
+      command: getent passwd vagrant
+      register: user_info
+      ignore_errors: yes
+
+    - name: 'Set password for vagrant user'
+      shell: 'echo "vagrant:vagrant" | chpasswd'
+      become: true
+      when: user_info.rc == 0
+
+    - name: 'Enable auto login'
+      blockinfile:
+        path: '/etc/gdm3/daemon.conf'
+        insertafter: '\[daemon\]'
+        block: |
+          AutomaticLoginEnable = true
+          AutomaticLogin = {{ ansible_user }}
+      register: auto_login
+      become: true
+      when: ansible_distribution == 'Debian'
+      notify: 'Reboot machine with activated Desktop'
+
+    - name: 'Enable auto login'
+      blockinfile:
+        path: '/etc/gdm3/custom.conf'
+        insertafter: '\[daemon\]'
+        block: |
+          AutomaticLoginEnable = true
+          AutomaticLogin = {{ ansible_user }}
+          WaylandEnable = false
+      register: auto_login
+      become: true
+      when: ansible_distribution == 'Ubuntu'
+      notify: 'Reboot machine with activated Desktop'
+
+    - name: Disable the systemd-journal-flush service
+      systemd:
+        name: systemd-journal-flush.service
+        enabled: no
+        state: stopped
+      become: true
+
+    - name: Disable ubuntu-advantage service
+      systemd:
+        name: ubuntu-advantage.service
+        state: stopped
+        enabled: no
+      become: true
+
+    - name: Remove GNOME Initial Setup
+      apt:
+        name: gnome-initial-setup
+        state: absent
+        autoremove: yes
+      become: true
+
+    - name: "Flush handlers to reboot with Desktop"
+      meta: flush_handlers
+
+    # Disable LTS upgrade prompt
+    - name: 'Set release upgrade prompt to never'
+      lineinfile:
+        path: /etc/update-manager/release-upgrades
+        regexp: '^Prompt=lts'
+        line: 'Prompt=never'
+        state: present
+      become: true
+
+    - name: 'Turn off automatic screen turn off on idle'
+      shell: >
+        gsettings set org.gnome.desktop.session idle-delay 0
+      become: true
+      become_user: '{{ ansible_user }}'
+  when: ansible_virtualization_role == "guest"
+

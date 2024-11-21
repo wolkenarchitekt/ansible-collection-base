@@ -1,0 +1,11 @@
+[Unit]
+Description=ArduPilot SITL Service
+After=network.target
+
+[Service]
+User={{ ardupilot_sitl_user }}
+WorkingDirectory={{ ardupilot_src_dir }}
+ExecStart=/usr/bin/python3 {{ ardupilot_src_dir }}/Tools/autotest/sim_vehicle.py --vehicle Rover --wipe-eeprom --no-rebuild --location Wildau --no-mavproxy -M {{ ardupilot_src_dir }}/Tools/autotest/locations.txt
+
+[Install]
+WantedBy=multi-user.target

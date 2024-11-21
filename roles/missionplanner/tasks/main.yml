@@ -1,0 +1,115 @@
+#	sudo apt-get install -y gnupg ca-certificates
+#	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+#	echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+#	sudo apt-get update
+#	sudo apt-get install -y mono-devel mono-complete
+#	mkdir /tmp/missionplanner && \
+#		cd /tmp/missionplanner && \
+#		wget https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-latest.zip && \
+#		unzip -o MissionPlanner-latest.zip && \
+#		rm MissionPlanner-latest.zip && \
+#		mkdir -p $(HOME)/applications/missionplanner/ && \
+#		mv /tmp/missionplanner/* $(HOME)/applications/missionplanner/
+
+
+- name: 'Install Missionplanner packages'
+  apt:
+    pkg:
+      - gnupg
+      - ca-certificates
+      - unzip
+  become: true
+
+- name: 'Add Apt signing key'
+  apt_key:
+    id: "3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+    keyserver: hkp://keyserver.ubuntu.com:80
+    keyring: /etc/apt/trusted.gpg.d/missionplanner.gpg
+  become: true
+
+# echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/debian stable-buster main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+
+- name: 'Add Mono repository to sources.list'
+  apt_repository:
+    # Only available for Ubuntu 20.04
+#    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/missionplanner.gpg] https://download.mono-project.com/repo/{{ ansible_distribution|lower }} stable-{{ ansible_distribution_release }} main"
+    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/missionplanner.gpg] https://download.mono-project.com/repo/{{ ansible_distribution|lower }} stable-focal main"
+    filename: mono
+    update_cache: true
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: 'Add Mono repository to sources.list'
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/missionplanner.gpg] https://download.mono-project.com/repo/{{ ansible_distribution|lower }} stable-buster main"
+    filename: missionplanner
+    update_cache: true
+  become: true
+  when: ansible_distribution == 'Debian'
+
+- name: 'Install Mono'
+  apt:
+    pkg:
+      - mono-devel
+      - mono-complete
+  become: true
+
+- name: 'Create Downloads dir'
+  file:
+    path: '/home/{{ ansible_user }}/Downloads'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Download Missionplanner-latest'
+  get_url:
+    url: 'https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-latest.zip'
+    dest: '/home/{{ ansible_user }}/Downloads/MissionPlanner-latest.zip'
+    timeout: 30
+  become_user: '{{ ansible_user }}'
+
+- name: 'Check if Mission Planner is installed'
+  ansible.builtin.stat:
+    path: '/home/{{ ansible_user }}/applications/MissionPlanner'
+    get_checksum: false
+  register: missionplanner
+
+- name: 'Create Mission Planner dir'
+  file:
+    path: '/home/{{ ansible_user }}/applications/MissionPlanner'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Extract Mission Planner'
+  unarchive:
+    src: '/home/{{ ansible_user }}/Downloads/MissionPlanner-latest.zip'
+    dest: '/home/{{ ansible_user }}/applications/MissionPlanner'
+    remote_src: true
+  when: not missionplanner.stat.exists
+
+- name: 'Add Mission Planner launcher'
+  template:
+    src: templates/missionplanner.launcher.j2
+    dest: '/usr/bin/missionplanner'
+    mode: 0755
+  become: true
+
+- name: 'Create applications dir'
+  file:
+    path: '/home/{{ ansible_user }}/.local/share/applications'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Add Mission Planner Desktop entry'
+  template:
+    src: templates/missionplanner.desktop.j2
+    dest: '/home/{{ ansible_user }}/.local/share/applications/missionplanner.desktop'
+
+- name: 'Add Mission Planner to GNOME favorites'
+  shell: >
+    gsettings set org.gnome.shell favorite-apps
+    "$(gsettings get org.gnome.shell favorite-apps | sed "s/]$/, 'missionplanner.desktop']/")"
+  become: true
+  become_user: '{{ ansible_user }}'

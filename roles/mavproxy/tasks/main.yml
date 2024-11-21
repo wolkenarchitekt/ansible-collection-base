@@ -1,0 +1,75 @@
+#sudo apt-get install
+#pip3 install PyYAML mavproxy --user
+#echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+
+- name: 'Install Mavproxy packages'
+  apt:
+    pkg:
+      - python3-dev
+      - python3-opencv
+      - python3-pip
+      - python3-matplotlib
+      - python3-lxml
+      - python3-pygame
+      - python3-venv
+#      - python3-wxpython4 # not needed for headless
+      - python3-wxgtk4.0 # not needed for headless
+      - python3-paho-mqtt
+  become: true
+
+- name: 'Install gtk packages'
+  apt:
+    pkg:
+      - build-essential
+      - libgtk-3-dev
+  become: true
+
+- name: 'Remove modemmanager'
+  ansible.builtin.apt:
+    name: modemmanager
+    state: absent
+  become: true
+
+- name: 'Install mavproxy and dependencies'
+  ansible.builtin.pip:
+    name: '{{ item }}'
+    virtualenv: '{{ ansible_env.HOME }}/.virtualenvs/mavproxy'
+    virtualenv_command: 'python3 -m venv'
+  become: true
+  become_user: '{{ ansible_user }}'
+  loop:
+    - wheel
+    - wxpython
+    - mavproxy
+    - opencv-python
+    - matplotlib
+    - paho-mqtt
+
+- name: 'Create mavproxy symlink'
+  ansible.builtin.file:
+    src: '{{ ansible_env.HOME }}/.virtualenvs/mavproxy/bin/mavproxy.py'
+    dest: '/usr/local/bin/mavproxy.py'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    state: link
+    mode: 0755
+  become: true
+
+- name: 'Copy mavinit.scr'
+  ansible.builtin.template:
+    src: 'templates/.mavinit.scr.j2'
+    dest: '{{ ansible_env.HOME }}/.mavinit.scr'
+    mode: 0644
+    backup: true
+  become: true
+  become_user: '{{ ansible_user }}'
+
+- name: 'Copy mavproxy service file'
+  template:
+    src: templates/mavproxy.service.j2
+    dest: /etc/systemd/system/mavproxy.service
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: 'Enable and start mavproxy service'

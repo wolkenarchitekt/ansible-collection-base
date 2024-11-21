@@ -1,0 +1,15 @@
+- name: 'Install mosquitto packages'
+  apt:
+    pkg:
+      - mosquitto
+      - mosquitto-clients
+  become: true
+
+- name: 'Copy mosquitto.conf'
+  ansible.builtin.template:
+    src: 'templates/mosquitto.conf.j2'
+    dest: '/etc/mosquitto/mosquitto.conf'
+    mode: 0644
+    backup: true
+  become: true
+  notify: 'Restart mosquitto'

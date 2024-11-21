@@ -1,0 +1,23 @@
+- name: Gather package facts
+  package_facts:
+    manager: apt
+
+- name: 'Get DEB architecture'
+  ansible.builtin.command: dpkg --print-architecture  # noqa no-changed-when
+  register: deb_architecture
+
+- name: 'Copy nomachine'
+  ansible.builtin.copy:
+    src: 'files/nomachine_{{ nomachine_version }}_{{ deb_architecture.stdout }}.deb'
+    dest: '/tmp/nomachine_{{ nomachine_version }}_{{ deb_architecture.stdout }}.deb'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0644
+  become: true
+  when: '"nomachine" not in ansible_facts.packages'
+
+- name: 'Install Nomachine'
+  apt:
+    deb: '/tmp/nomachine_{{ nomachine_version }}_{{ deb_architecture.stdout }}.deb'
+  become: true
+  when: '"nomachine" not in ansible_facts.packages'

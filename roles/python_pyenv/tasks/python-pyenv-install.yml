@@ -1,0 +1,11 @@
+- name: 'Check if Python {{ python.version }} is installed'
+  ansible.builtin.stat:
+    path: '{{ ansible_env.HOME }}/.pyenv/versions/{{ python.version }}'
+    get_checksum: false
+  register: python_bin
+
+- name: 'Install Python {{ python.version }}'
+  command: 'pyenv install {{ python.version }}'
+  when: not python_bin.stat.exists
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}"

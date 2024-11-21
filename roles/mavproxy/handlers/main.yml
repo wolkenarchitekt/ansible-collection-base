@@ -1,0 +1,7 @@
+- name: 'Enable and start mavproxy service'
+  ansible.builtin.systemd:
+    name: "mavproxy"
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  become: true

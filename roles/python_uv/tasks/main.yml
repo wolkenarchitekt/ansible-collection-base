@@ -1,0 +1,25 @@
+- name: 'Install pipx'
+  apt:
+    pkg:
+      - pipx
+  become: true
+
+- name: 'Install uv 0.4.11'
+  community.general.pipx:
+    name: '{{ item }}'
+    force: true
+  loop:
+    - uv==0.4.11
+
+# https://adamj.eu/tech/2024/09/18/python-uv-development-setup/
+- name: uv install latest Pythons
+  command: >
+    {{ ansible_env.HOME }}/.local/bin/uv python install
+    3.8
+    3.9
+    3.10
+    3.11
+    3.12
+    3.13
+  tags:
+    - uv

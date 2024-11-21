@@ -1,0 +1,24 @@
+- name: 'Check if src dir exists'
+  ansible.builtin.stat:
+    path: '{{ ansible_env.HOME }}/src'
+    get_checksum: false
+  register: src_dir
+
+- name: 'Create virtualenvs'
+  include_tasks: virtualenv-create.yml
+  loop:
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-api' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-cli' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-config' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-opensky' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-dump1090' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/flarm-atom-uav' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-integration-tests' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-integration/alarm-api' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-integration/alarm-api' }
+    - { dir: '{{ ansible_env.HOME }}/src/alarm/alarm-integration/alarm-opensky' }
+    - { dir: '{{ ansible_env.HOME }}/src/config2' }
+  loop_control:
+    loop_var: venv
+  tags: virtualenvs
+  when: src_dir.stat.exists

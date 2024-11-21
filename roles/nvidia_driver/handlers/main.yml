@@ -1,0 +1,15 @@
+- name: 'Reboot system'
+  reboot:
+    msg: "Reboot initiated by Ansible to apply changes"
+    connect_timeout: 5
+    reboot_timeout: 600
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+  become: true
+  when: ansible_connection != "local"
+
+- name: 'Start GDM3'
+  systemd:
+    name: gdm3
+    state: started
+  become: true

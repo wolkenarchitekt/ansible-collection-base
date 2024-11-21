@@ -1,0 +1,13 @@
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enx3ce1a14b4e83:
+      dhcp4: no
+  bridges:
+    br0:
+      interfaces: [enx3ce1a14b4e83]   # Interface(s) to bridge
+      dhcp4: yes    
+
+        

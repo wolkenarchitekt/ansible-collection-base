@@ -1,0 +1,5 @@
+- name: 'Install Vagrant'
+  import_tasks: vagrant.yml
+
+- name: 'Install Vagrant libvirt'
+  import_tasks: libvirt.yml

@@ -1,0 +1,32 @@
+from pydantic import BaseModel, Field
+
+
+class Device(BaseModel):
+    slot: str = Field(default=None)
+    domain: str = Field(default=None)
+    domain_int: int = Field(default=None)
+    bus: str = Field(default=None)
+    bus_int: int = Field(default=None)
+    dev: str = Field(default=None)
+    dev_int: int = Field(default=None)
+    function: str = Field(default=None)
+    function_int: int = Field(default=None)
+    class_: str = Field(default=None, alias="class")  # Use alias at the field level
+    class_id: str = Field(default=None)
+    class_id_int: int = Field(default=None)
+    vendor: str = Field(default=None)
+    vendor_id: str = Field(default=None)
+    vendor_id_int: int = Field(default=None)
+    device: str = Field(default=None)
+    device_id: str = Field(default=None)
+    device_id_int: int = Field(default=None)
+    svendor: str = Field(default=None)
+    svendor_id: str = Field(default=None)
+    svendor_id_int: int = Field(default=None)
+    sdevice: str = Field(default=None)
+    sdevice_id: str = Field(default=None)
+    sdevice_id_int: int = Field(default=None)
+    rev: str = Field(default=None)
+    progif: str = Field(default=None)
+    progif_int: int = Field(default=None)
+    iommugroup: str = Field(default=None)

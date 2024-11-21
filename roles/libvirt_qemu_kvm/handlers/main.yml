@@ -1,0 +1,11 @@
+- name: 'Restart libvirtd'
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: libvirtd
+    enabled: true
+  become: true
+
+- name: 'Reload sysctl'
+  ansible.builtin.command: sysctl --system
+  become: true

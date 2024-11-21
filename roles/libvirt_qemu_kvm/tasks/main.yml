@@ -1,0 +1,45 @@
+- import_tasks: main-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- import_tasks: main-archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+
+- name: 'Add user to libvirt group'
+  ansible.builtin.user:
+    name: '{{ ansible_user }}'
+    groups: libvirt
+    append: true
+  become: true
+
+- name: 'Configure libvirt'
+  blockinfile:
+    path: '/etc/libvirt/libvirtd.conf'
+    block: |
+      unix_sock_group = "libvirt"
+      unix_sock_rw_perms = "0770"
+  become: true
+  notify: 'Restart libvirtd'
+
+- name: 'Configure libvirt-qemu to run as {{ ansible_user }}'
+  lineinfile:
+    path: '/etc/libvirt/qemu.conf'
+    line: 'user = "{{ ansible_user }}"'
+  become: true
+  notify: 'Restart libvirtd'
+
+- name: 'Allow audio without graphics'
+  lineinfile:
+    path: '/etc/libvirt/qemu.conf'
+    line: 'nographics_allow_host_audio = 1'
+  become: true
+  notify: 'Restart libvirtd'
+
+- name: 'Copy sysctl settings for ipv4 forwarding'
+  ansible.builtin.copy:
+    src: 'files/etc/sysctl.d/20-ipv4-forward.conf'
+    dest: '/etc/sysctl.d/20-ipv4-forward.conf'
+    mode: 0644
+  become: true
+  notify:
+    - 'Reload sysctl'

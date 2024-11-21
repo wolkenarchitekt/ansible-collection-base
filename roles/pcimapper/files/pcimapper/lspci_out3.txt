@@ -1,0 +1,10 @@
+Slot:	c4:00.0
+Class:	Ethernet controller [0200]
+Vendor:	Broadcom Inc. and subsidiaries [14e4]
+Device:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [16d8]
+SVendor:	Lenovo [17aa]
+SDevice:	BCM57416 NetXtreme-E Dual-Media 10G RDMA Ethernet Controller [4048]
+PhySlot:	0-4
+Rev:	01
+NUMANode:	0
+IOMMUGroup:	3

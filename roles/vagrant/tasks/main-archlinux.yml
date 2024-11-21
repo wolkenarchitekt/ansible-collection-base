@@ -1,0 +1,11 @@
+- name: 'Install Vagrant'
+  community.general.pacman:
+    name:
+      - vagrant
+  become: true
+
+- name: 'Disable Vagrant strict dependency enforcement'
+  ansible.builtin.lineinfile:
+    path: '/etc/environment'
+    line: VAGRANT_DISABLE_STRICT_DEPENDENCY_ENFORCEMENT=1
+  become: true

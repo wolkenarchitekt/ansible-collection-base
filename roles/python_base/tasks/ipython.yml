@@ -1,0 +1,14 @@
+#	@#ipython3 profile create
+#	@#ln -sf $(PWD)/files/home/user/.ipython/profile_default ~/.ipython/profile_default
+#	@cp -r $(PWD)/files/home/user/.ipython/profile_default/ ~/.ipython/profile_default
+
+#- name: 'Copy .ipython settings'
+#  synchronize:
+#    src: 'files/.ipython/'
+#    dest: '{{ ansible_env.HOME }}/.ipython'
+#    recursive: true
+
+- name: 'Copy .ipython settings'
+  ansible.builtin.copy:
+    src: 'files/.ipython/'
+    dest: '{{ ansible_env.HOME }}/.ipython'

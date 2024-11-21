@@ -1,0 +1,3 @@
+ardupilot_src_dir: /usr/local/src/ardupilot
+num_cores: 8
+ardupilot_sitl_user: "{{ ansible_user }}"

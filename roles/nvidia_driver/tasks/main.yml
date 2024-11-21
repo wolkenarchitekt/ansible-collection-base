@@ -3,5 +3,3 @@
 
 - import_tasks: main-archlinux.yml
   when: ansible_os_family == 'Archlinux'
-
-#- import_tasks: plugins.yml

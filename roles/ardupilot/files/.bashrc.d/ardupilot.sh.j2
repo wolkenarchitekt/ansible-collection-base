@@ -1,0 +1,14 @@
+#!/bin/bash
+#source /home/ingo/venv-ardupilot/bin/activate
+export PATH=/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:$PATH
+export PATH=/usr/local/src/ardupilot/Tools/autotest:$PATH
+export PATH=/usr/lib/ccache:$PATH
+
+#alias sim_vehicle.py='{{ ansible_env.HOME }}/venv-ardupilot/bin/python {{ ardupilot_src_dir }}/Tools/autotest/sim_vehicle.py'
+
+#source "{{ ardupilot_src_dir }}/Tools/completion/completion.bash"
+
+# ARDUPILOT_HOME="$HOME/src/alarm/ardupilot-simulator/ardupilot"
+# if [ -f "${ARDUPILOT_HOME}/Tools/completion/completion.bash" ]; then
+#     source "${ARDUPILOT_HOME}/Tools/completion/completion.bash"
+# fi

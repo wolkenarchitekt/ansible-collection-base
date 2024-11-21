@@ -1,2 +1,6 @@
 .idea
-
+.venv
+*.egg-info
+build
+roles/nvidia_driver/files/
+roles/nomachine/files/

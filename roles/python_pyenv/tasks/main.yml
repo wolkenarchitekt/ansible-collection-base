@@ -1,0 +1,94 @@
+- name: 'Install packages to build python'
+  apt:
+    pkg:
+      - build-essential
+#      - cargo
+      - curl
+      - gcc
+      - libffi-dev
+      - libgdbm-dev
+      - libncurses5-dev
+      - libnss3-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - libffi-dev
+      - libbz2-dev
+      - tk-dev
+      - zlib1g-dev
+      - pipx
+  become: true
+
+# Install Python with pyenv
+- name: 'Check if pyenv is installed'
+  ansible.builtin.stat:
+    path: '{{ ansible_env.HOME }}/.pyenv/bin/pyenv'
+    get_checksum: false
+  register: pyenv_bin
+
+- name: 'Install Pyenv'
+  block:
+  - name: 'Download pyenv installer'
+    get_url:
+        url: https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer
+        dest: /tmp/pyenv-installer
+
+  - name: 'Make pyenv-installer executable'
+    file: dest=/tmp/pyenv-installer mode=a+x
+
+  - name: 'Check if pyenv exists'
+    ansible.builtin.stat:
+      path: '{{ ansible_env.HOME }}/.pyenv'
+      get_checksum: false
+    register: pyenv_dir
+
+  - name: 'Install pyenv'
+    shell: /tmp/pyenv-installer
+    become: true
+    become_user: '{{ ansible_user }}'
+    when: not pyenv_dir.stat.exists
+
+#  - name: 'Update .bashrc'
+#    blockinfile:
+#      path: '{{ ansible_env.HOME }}/.bashrc'
+#      marker: '# ANSIBLE MANAGED BLOCK'
+#      block: |
+#        if [ -d "$HOME/.pyenv/bin" ]; then
+#            PATH="$PATH:$HOME/.pyenv/bin"
+#        fi
+#
+#        command -v pyenv >/dev/null 2>&1 && {
+#            export PYENV_ROOT="$HOME/.pyenv"
+#            export PATH="$PYENV_ROOT/bin:$PATH"
+#            eval "$(pyenv init --path)"
+#        }
+
+#- name: 'Source pyenv'
+#  command: 'source {{ ansible_user }}/.bashrc.d/pyenv.sh'
+#  tags: pyenv-update
+
+- name: 'Update pyenv'
+  command: '{{ ansible_env.HOME }}/.pyenv/bin/pyenv update'
+  tags: pyenv-update
+
+- name: 'Install Python versions'
+  include_tasks: python-pyenv-install.yml
+  loop:
+    - { version: '3.9.2' }
+    - { version: '3.9.18' }
+    - { version: '3.10.13' }
+    - { version: '3.11.3' }
+    - { version: '3.11.7' }
+    - { version: '3.12.4' }
+    - { version: '3.12.6' }
+    - { version: '3.12.7' }
+  loop_control:
+    loop_var: python
+
+- name: Install cookiecutter
+  community.general.pipx:
+    name: cookiecutter
+
+- name: Install yt-dlp
+  community.general.pipx:
+    name: yt-dlp

@@ -1,0 +1,23 @@
+# https://dgpu-docs.intel.com/driver/client/overview.html
+- name: 'Install Libvirt packages'
+  apt:
+    pkg:
+      - bridge-utils
+      - evtest
+      - libvirglrenderer-dev
+      - libvirglrenderer1
+      - libvirt-clients
+      - libvirt-daemon-system
+      - libvirt-dev
+      - qemu-kvm
+      - qemu-utils
+      - virt-manager
+      - virtinst
+  become: true
+
+- name: 'Install virtiofsd on Ubuntu 24.04'
+  apt:
+    pkg:
+      - virtiofsd
+  become: true
+  when: ansible_distribution_release == 'noble'

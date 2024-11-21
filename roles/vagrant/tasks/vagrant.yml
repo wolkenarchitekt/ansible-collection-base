@@ -1,0 +1,81 @@
+#vagrant:
+##	wget https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.deb
+##	sudo dpkg -i vagrant_2.2.5_x86_64.deb
+##	rm vagrant_2.2.5_x86_64.deb
+#	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+#	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $$(lsb_release -cs) main"
+#	sudo apt-get update && sudo apt-get install vagrant
+
+- name: 'Install libfuse2'
+  apt:
+    pkg:
+      - libfuse2
+  become: true
+
+- name: 'Add Apt signing key'
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
+  become: true
+
+- name: 'Get DEB architecture'
+  ansible.builtin.command: dpkg --print-architecture  # noqa no-changed-when
+  register: deb_architecture
+
+- name: Distribution major version
+  debug: msg="{{ ansible_distribution_major_version }}"
+
+- block:
+  - name: 'Add Vagrant source repository to sources list'
+    apt_repository:
+      repo: "deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/trusted.gpg.d/hashicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_facts['lsb']['codename'] }} main"
+      filename: vagrant
+      update_cache: true
+    become: true
+
+  - name: 'Install Vagrant'
+    apt: pkg=vagrant
+    become: true
+
+  when:
+    - ansible_distribution == 'Ubuntu'
+#    - ansible_facts['lsb']['release'] != "24.04"
+
+#- block:
+#  - name: 'Check if Vagrant executable exists'
+#    ansible.builtin.stat:
+#      path: '/usr/bin/vagrant'
+#      get_checksum: false
+#    register: vagrant_bin
+#
+#  - name: 'Download Vagrant'
+#    get_url:
+#      url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_linux_amd64.zip'
+#      dest: '/tmp/vagrant_{{ vagrant_version }}_linux_amd64.zip'
+#    when: not vagrant_bin.stat.exists
+#
+#  - name: 'Extract Vagrant'
+#    unarchive:
+#      src: '/tmp/vagrant_{{ vagrant_version }}_linux_amd64.zip'
+#      dest: '/usr/bin/'
+#      remote_src: true
+#      owner: '{{ ansible_user }}'
+#      group: '{{ ansible_user }}'
+#    become: true
+#    when: not vagrant_bin.stat.exists
+#
+#  when:
+#    - ansible_distribution == 'Ubuntu'
+#    - ansible_facts['lsb']['release'] == "24.04"
+
+- name: 'Install nfs kernel server for shared folder via nfs support'
+  apt: pkg=nfs-kernel-server
+  become: true
+
+#- name: Get list of installed Vagrant boxes
+#  command: vagrant box list
+#  register: vagrant_box_list
+#  when: ansible_virtualization_role != "guest"
+
+#- name: 'Install dotenv into Vagrant'
+#  ansible.builtin.command: /opt/vagrant/embedded/bin/gem install dotenv

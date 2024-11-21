@@ -1,0 +1,9 @@
+Slot:	00:00.0
+Class:	System peripheral [0880]
+Vendor:	Intel Corporation [8086]
+Device:	Device [09a2]
+SVendor:	Lenovo [17aa]
+SDevice:	Device [7812]
+Rev:	04
+NUMANode:	0
+IOMMUGroup:	12

@@ -1,0 +1,7 @@
+- name: 'Enable and start ardupilot-sitl service'
+  ansible.builtin.systemd:
+    name: "ardupilot-sitl"
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  become: true

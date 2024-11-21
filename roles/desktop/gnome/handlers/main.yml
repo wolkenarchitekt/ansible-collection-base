@@ -1,0 +1,12 @@
+- name: 'Restart gdm'
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: gdm
+    enabled: true
+  become: true
+
+- name: 'Reboot machine with activated Desktop'
+  reboot:
+    reboot_timeout: 600
+  become: true

@@ -1,0 +1,32 @@
+- name: 'Add eth1 configuration to /etc/network/interfaces'
+  blockinfile:
+    path: '/etc/network/interfaces'
+    block: | 
+      allow-hotplug eth1
+      iface eth1 inet dhcp
+    insertafter: EOF
+  become: true
+  notify: 'Restart networkmanager'
+  when: ansible_distribution == 'Debian'
+
+- block:
+  - name: Create or update Netplan configuration file for DHCP
+    ansible.builtin.copy:
+      dest: /etc/netplan/01-netcfg.yaml
+      content: |
+        network:
+          version: 2
+          ethernets:
+            alleths:
+              match:
+                name: en*
+              dhcp4: true
+      owner: root
+      group: root
+      mode: '0644'
+    become: true
+
+  - name: Apply Netplan configuration
+    ansible.builtin.command: netplan apply
+    become: true
+  when: ansible_distribution == 'Ubuntu'

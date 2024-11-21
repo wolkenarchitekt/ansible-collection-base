@@ -1,0 +1,11 @@
+- name: 'Check for installed vagrant plugins'
+  command: 'vagrant plugin list'
+  register: vagrant_plugin_list
+
+- name: 'Install Vagrant env plugin'
+  command: 'vagrant plugin install vagrant-env'
+  when: not 'vagrant-env' in vagrant_plugin_list.stdout
+
+- name: 'Install Vagrant timezone plugin'
+  command: 'vagrant plugin install vagrant-timezone'
+  when: not 'vagrant-timezone' in vagrant_plugin_list.stdout
