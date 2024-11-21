@@ -1,8 +1,10 @@
-- import_tasks: main-debian.yml
-  when: ansible_os_family == 'Debian'
-
-- import_tasks: main-archlinux.yml
-  when: ansible_os_family == 'Archlinux'
+- name: 'Install Python Debian packages'
+  apt:
+    pkg:
+      - python3-pip
+      - python3-venv
+      - pipx
+  become: true
 
 - name: 'Setup ipython'
   import_tasks: ipython.yml

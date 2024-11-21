@@ -1,7 +1,0 @@
-- name: 'Install Python Debian packages'
-  apt:
-    pkg:
-      - python3-pip
-      - python3-venv
-      - pipx
-  become: true

@@ -1,8 +1,26 @@
-- import_tasks: main-debian.yml
-  when: ansible_os_family == 'Debian'
+# https://dgpu-docs.intel.com/driver/client/overview.html
+- name: 'Install Libvirt packages'
+  apt:
+    pkg:
+      - bridge-utils
+      - evtest
+      - libvirglrenderer-dev
+      - libvirglrenderer1
+      - libvirt-clients
+      - libvirt-daemon-system
+      - libvirt-dev
+      - qemu-kvm
+      - qemu-utils
+      - virt-manager
+      - virtinst
+  become: true
 
-- import_tasks: main-archlinux.yml
-  when: ansible_os_family == 'Archlinux'
+- name: 'Install virtiofsd on Ubuntu 24.04'
+  apt:
+    pkg:
+      - virtiofsd
+  become: true
+  when: ansible_distribution_release == 'noble'
 
 
 - name: 'Add user to libvirt group'
