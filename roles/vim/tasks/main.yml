@@ -1,0 +1,6 @@
+- import_tasks: main-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- import_tasks: main-archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+

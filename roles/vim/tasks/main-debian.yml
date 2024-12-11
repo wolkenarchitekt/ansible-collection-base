@@ -1,0 +1,36 @@
+- name: 'Install vim'
+  apt:
+    pkg:
+      - vim
+  become: true
+
+- name: 'Create vim dir'
+  file:
+    path: '{{ ansible_env.HOME }}/.vim'
+    state: directory
+  become_user: '{{ ansible_user }}'
+
+- name: 'Create vim backups dir'
+  file:
+    path: '{{ ansible_env.HOME }}/.vim/backups'
+    state: directory
+  become_user: '{{ ansible_user }}'
+
+- name: 'Copy vimrc'
+  copy:
+    src: 'files/.vimrc'
+    dest: '{{ ansible_env.HOME }}/.vimrc'
+  become_user: '{{ ansible_user }}'
+
+- name: 'Copy vim settings'
+  copy:
+    src: 'files/.vim/'
+    dest: '{{ ansible_env.HOME }}/.vim/'
+  become_user: '{{ ansible_user }}'
+
+- name: 'Set VIM as default editor'
+  community.general.alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
+  tags: alt-editor
+  become: true

@@ -1,0 +1,12 @@
+mpd_user: "mpd"
+mpd_root: "/var/lib/mpd"
+mpd_music_directory: "{{ mpd_root }}/music"
+mpd_playlist_directory: '{{ mpd_root }}/playlists'
+mpd_db_file: "{{ mpd_root }}/tag_cache"
+mpd_state_file: "{{ mpd_root }}/state"
+mpd_sticker_file: "{{ mpd_root }}/sticker.sql"
+
+mpd_output_type: "alsa"
+mpd_output_name: "Default ALSA Device"
+mpd_output_device: "default"
+mpd_output_mixer_type: "hardware"

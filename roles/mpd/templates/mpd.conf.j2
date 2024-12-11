@@ -1,0 +1,27 @@
+music_directory    "{{ mpd_music_directory }}"
+playlist_directory "{{ mpd_playlist_directory }}"
+db_file            "{{ mpd_db_file }}"
+state_file         "{{ mpd_state_file }}"
+sticker_file       "{{ mpd_sticker_file }}"
+bind_to_address    "0.0.0.0"
+bind_to_address    "/var/run/mpd/socket"
+filesystem_charset "UTF-8"
+user               "{{ mpd_user }}"
+
+audio_output {
+    type        "{{ mpd_output_type }}"
+    name        "{{ mpd_output_name }}"
+{% if mpd_output_device is defined %}
+    device      "{{ mpd_output_device }}"
+{% endif %}
+{% if mpd_output_mixer_type is defined %}
+    mixer_type  "{{ mpd_output_mixer_type }}"
+{% endif %}
+}
+
+# audio_output {
+#     type            "file"
+#     name            "PCM File Output"
+#     path            "/path/to/output/file.pcm"
+#     format          "44100:16:2"  # Format: Sample rate:Bit depth:Channels
+# }

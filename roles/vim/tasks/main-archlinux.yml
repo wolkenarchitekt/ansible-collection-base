@@ -1,0 +1,26 @@
+- name: Install VIM
+  community.general.pacman:
+    name:
+      - vim
+  become: true
+
+- name: 'Create vim dir'
+  file:
+    path: '{{ ansible_env.HOME }}/.vim'
+    state: directory
+
+- name: 'Create vim backups dir'
+  file:
+    path: '{{ ansible_env.HOME }}/.vim/backups'
+    state: directory
+
+- name: 'Copy vimrc'
+  ansible.builtin.copy:
+    src: 'files/.vimrc'
+    dest: '{{ ansible_env.HOME }}/.vimrc'
+
+- name: 'Copy vim settings'
+  ansible.builtin.copy:
+    src: 'files/.vim/'
+    dest: '{{ ansible_env.HOME }}/.vim/'
+

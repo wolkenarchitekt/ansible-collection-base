@@ -1,0 +1,42 @@
+- name: Ensure curl is installed (required for Volta installation)
+  ansible.builtin.package:
+    name: curl
+    state: present
+  become: true
+
+- name: Download and install Volta
+  ansible.builtin.shell: |
+    curl https://get.volta.sh | bash
+  args:
+    creates: "/home/{{ ansible_user }}//.volta/bin/volta"
+  become_user: '{{ ansible_user }}'
+
+- name: Add Volta to PATH
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_user }}/.profile"
+    line: 'export PATH="$HOME/.volta/bin:$PATH"'
+    state: present
+  become_user: '{{ ansible_user }}'
+
+# Reset connection so volta is on PATH
+- name: reset connection
+  meta: reset_connection
+  when: profile_update.changed
+
+- name: Install Node.js using Volta
+  ansible.builtin.command: '/home/{{ ansible_user }}/.volta/bin/volta install node@{{ node_version }}'
+  become_user: '{{ ansible_user }}'
+
+- name: 'Check node_version'
+  ansible.builtin.command: '/home/{{ ansible_user }}/.volta/bin/node --version'
+  register: node_version_cmd
+  become_user: '{{ ansible_user }}'
+
+- name: Set expected node version
+  ansible.builtin.set_fact:
+    expected_node_version: "v{{ node_version }}"
+
+- name: Assert node_version_cmd equals expected_node_version
+  ansible.builtin.assert:
+    that:
+      - node_version_cmd.stdout == expected_node_version

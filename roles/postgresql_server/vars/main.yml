@@ -1,0 +1,1 @@
+postgresql_conf_dir: "/etc/postgresql/{{ postgresql_version }}/main"

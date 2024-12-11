@@ -1,0 +1,69 @@
+- name: 'Install avahi-daemon'
+  apt:
+    pkg:
+      - avahi-daemon
+  become: true
+
+- name: 'Check if shairport-sync is installed already'
+  stat:
+    path: /usr/local/bin/shairport-sync
+  register: shairport_sync_bin
+
+- block:
+  - name: Install dependencies
+    apt:
+      name:
+        - build-essential
+        - git
+        - xmltoman
+        - autoconf
+        - automake
+        - libtool
+        - libpopt-dev
+        - libdaemon-dev
+        - libasound2-dev
+        - libavahi-client-dev
+        - libssl-dev
+        - libsoxr-dev
+        - libconfig-dev
+      state: present
+    become: true
+
+  - name: 'Create shairport-sync src dir'
+    file:
+      path: '/usr/local/src/shairport-sync'
+      state: directory
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+    become: true
+
+  - name: Clone Shairport Sync repository
+    git:
+      repo: https://github.com/mikebrady/shairport-sync.git
+      dest: /usr/local/src/shairport-sync
+      update: yes
+
+  - name: Build and install Shairport Sync
+    shell: |
+      autoreconf -i -f \
+      && ./configure --sysconfdir=/etc --with-alsa --with-avahi --with-ssl=openssl --with-soxr --with-systemd \
+      && make \
+      && sudo make install
+    args:
+      chdir: /usr/local/src/shairport-sync
+
+  - name: 'Copy shairport-sync config'
+    ansible.builtin.template:
+      src: 'templates/etc/shairport-sync.conf.j2'
+      dest: '/etc/shairport-sync.conf'
+      mode: 0644
+      backup: true
+    become: true
+
+  - name: Enable and start Shairport Sync service
+    systemd:
+      name: shairport-sync
+      enabled: yes
+      state: restarted
+    become: true
+#  when: not shairport_sync_bin.stat.exists

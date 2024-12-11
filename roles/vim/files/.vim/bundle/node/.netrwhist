@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/iweinmann/src/opentunes/htmllisting-parser'
+let g:netrw_dirhist_3='/home/iweinmann/src/opentunes/rivamp-old/rivamp2-backup/services/nginx/nginx.conf'
+let g:netrw_dirhist_2='/home/iweinmann/src/config2'
+let g:netrw_dirhist_1='/home/iweinmann/src/opentunes/riviamp-stack'

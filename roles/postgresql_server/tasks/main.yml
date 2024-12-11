@@ -1,0 +1,59 @@
+- name: Ensure PostgreSQL is installed
+  apt:
+    name: "postgresql-{{ postgresql_version }}"
+    state: present
+  become: true
+  tags: postgresql
+
+- name: Ensure psycopg2 is installed
+  apt:
+    name: python3-psycopg2
+    state: present
+  become: true
+
+- name: 'Allow to access PostgreSQL from remote'
+  ansible.builtin.blockinfile:
+    path: '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
+    block: |
+      host    all             all              0.0.0.0/0                       md5
+      host    all             all              ::/0                            md5
+      local   all             {{ postgresql_user }}                                peer
+    backup: true
+  become: true
+  notify:
+    - 'Restart PostgreSQL'
+
+- name: 'Allow to access PostgreSQL from remote'
+  ansible.builtin.lineinfile:
+    dest: '/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf'
+    line: "listen_addresses = '*'"
+  become: true
+  notify:
+    - 'Restart PostgreSQL'
+
+- name: 'Install setfacl support'
+  become: true
+  ansible.builtin.apt: pkg=acl
+
+- name: Create PostgreSQL user
+  community.postgresql.postgresql_user:
+    name: "{{ postgresql_user }}"
+    password: "{{ postgresql_password }}"
+  become: true
+  become_user: postgres
+
+- name: Create a new database
+  community.postgresql.postgresql_db:
+    name: '{{ postgresql_db }}'
+    owner: '{{ postgresql_user }}'
+  become: true
+  become_user: postgres
+
+- name: Grant privileges on database
+  community.postgresql.postgresql_privs:
+    db: '{{ postgresql_db }}'
+    role: '{{ postgresql_user }}'
+    type: database
+    privs: ALL
+  become: true
+  become_user: postgres

@@ -1,0 +1,43 @@
+- name: Ensure PostgreSQL is installed
+  apt:
+    name: "postgresql-{{ postgresql_version }}"
+    state: present
+  become: true
+  tags: postgresql
+
+- name: Ensure psycopg2 is installed
+  apt:
+    name: python3-psycopg2
+    state: present
+  become: true
+
+- name: Allow local password authentication for all users
+  lineinfile:
+    path: "{{ postgresql_conf_dir }}/pg_hba.conf"
+    regexp: '^local\s+all\s+all\s+peer'
+    line: "local   all             all                                     md5"
+    state: present
+  notify: Restart PostgreSQL
+  become: true
+
+- name: Ensure listen address is set to allow connections
+  lineinfile:
+    path: "{{ postgresql_conf_dir }}/postgresql.conf"
+    regexp: '^#?listen_addresses'
+    line: "listen_addresses = '*'"
+    state: present
+  notify: Restart PostgreSQL
+  become: true
+
+- name: Restart PostgreSQL
+  service:
+    name: postgresql
+    state: restarted
+  become: true
+
+- name: Set PostgreSQL password for the default user
+  become_user: postgres
+  postgresql_user:
+    name: "{{ postgresql_user }}"
+    password: "{{ postgresql_password }}"
+    encrypted: false

@@ -1,0 +1,90 @@
+#- name: Create MPD music directory if it does not exist
+#  file:
+#    path: "{{ mpd_music_directory }}"
+#    state: directory
+#    owner: "{{ mpd_user }}"
+#    group: "{{ mpd_user }}"
+#    mode: '0755'
+
+- name: Install MPD
+  apt:
+    pkg:
+      - mpd
+      - mpc
+  become: true
+
+#- name: Stop and disable the system-wide MPD service
+#  systemd:
+#    name: mpd
+#    state: stopped
+#    enabled: no
+#  become: true
+#
+#- name: Create MPD config directory
+#  file:
+#    path: "/home/{{ mpd_user }}/.config/mpd"
+#    state: directory
+#    owner: "{{ mpd_user }}"
+#    group: "{{ mpd_user }}"
+#    mode: '0755'
+#
+
+- name: 'Add user to audio group'
+  user:
+    name: '{{ mpd_user }}'
+    groups: audio
+    append: true
+  become: true
+
+- name: Ensure /var/lib/mpd is owned by mpd_user
+  file:
+    path: '{{ mpd_root }}'
+    state: directory
+    owner: "{{ mpd_user }}"
+    mode: '0755'
+  become: true
+
+- name: Copy MPD config file
+  template:
+    src: mpd.conf.j2
+    dest: "/etc/mpd.conf"
+  become: true
+  notify: 'Restart mpd'
+  tags: mpd_config
+
+#
+#- name: Create necessary directories for MPD
+#  file:
+#    path: "{{ item }}"
+#    state: directory
+#    owner: "{{ mpd_user }}"
+#    group: "{{ mpd_user }}"
+#    mode: '0755'
+#  loop:
+#    - "/home/{{ mpd_user }}/.config/mpd/playlists"
+#
+#- name: Create user-specific systemd service for MPD
+#  copy:
+#    dest: "/etc/systemd/user/mpd.service"
+#    content: |
+#      [Unit]
+#      Description=User-specific MPD service
+#      After=network.target sound.target
+#
+#      [Service]
+#      ExecStart=/usr/bin/mpd --no-daemon {{ mpd_config_path }}
+#      Restart=on-failure
+#
+#      [Install]
+#      WantedBy=default.target
+#  become: true
+#
+#- name: Enable MPD service for the user
+#  ansible.builtin.systemd:
+#    name: "{{ mpd_user }}-mpd.service"
+#    enabled: true
+#    daemon_reload: true
+#    scope: user
+#    state: started
+#  become_user: "{{ mpd_user }}"
+

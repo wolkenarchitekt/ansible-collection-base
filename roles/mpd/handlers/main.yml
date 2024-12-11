@@ -1,0 +1,6 @@
+- name: 'Restart mpd'
+  service:
+    name: mpd
+    state: restarted
+    enabled: true
+  become: true
