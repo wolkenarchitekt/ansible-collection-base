@@ -3,9 +3,11 @@
     pkg:
       - git
       - python3-pip
+      - python3-empy
+      - python3-virtualenv
 
-- name: 'Install empy package'
-  command: python3 -m pip install empy==3.3.4
+#- name: 'Install empy package'
+#  command: python3 -m pip install empy==3.3.4
 
 - name: 'Create ardupilot src dir'
   file:
@@ -74,18 +76,26 @@
   args:
     chdir: '{{ ardupilot_src_dir }}'
 
-- name: 'Build rover'
-  shell: "./waf -j{{ ansible_processor_count }} rover"
-  become_user: '{{ ansible_user }}'
-  args:
-    chdir: '{{ ardupilot_src_dir }}'
-  tags: test
+- name: 'Check if virtualenv exists'
+  stat:
+    path: '/home/{{ ansible_user }}/venv-ardupilot/bin/activate'
+  register: venv
 
-- name: 'Build arduplane'
-  shell: "./waf -j{{ ansible_processor_count }} build --target bin/arduplane"
+- name: 'Build {{ item }}'
+  shell: |
+    {% if venv.stat.exists %}
+    . /home/{{ ansible_user }}/venv-ardupilot/bin/activate && ./waf -j{{ ansible_processor_count }} {{ item }}
+    {% else %}
+    ./waf -j{{ ansible_processor_count }} {{ item }}
+    {% endif %}
   become_user: '{{ ansible_user }}'
   args:
     chdir: '{{ ardupilot_src_dir }}'
+  with_items:
+    - rover
+    - plane
+    - copter
+  when: venv.stat.exists
 
 - name: 'Copy locations.txt'
   ansible.builtin.copy:
@@ -107,3 +117,11 @@
     group: root
     mode: '0644'
   notify: 'Enable and start ardupilot-sitl service'
+
+- name: Copy sim_vehicle wrapper
+  template:
+    src: templates/sim_vehicle.py.j2
+    dest: /usr/local/bin/sim_vehicle.py
+    owner: root
+    group: root
+    mode: '0755'

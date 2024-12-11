@@ -3,6 +3,9 @@
   apt:
     update_cache: yes
 
+- debug:
+    msg: "Variable: {{ ansible_virtualization_role }}"
+
 - name: "Install and configure GNOME Desktop"
   block:
     - name: 'Install and configure GNOME Desktop'

@@ -1,0 +1,29 @@
+- name: 'Check if proxy.th-wildau.de is reachable'
+  ansible.builtin.command: ping -c 1 proxy.th-wildau.de
+  register: ping_result
+  ignore_errors: true
+
+- block:
+  - name: 'Enable th wildau proxy'
+    blockinfile:
+      path: '/etc/environment'
+      block: |
+        http_proxy=http://proxy.th-wildau.de:8080
+        https_proxy=http://proxy.th-wildau.de:8080
+    become: true
+
+  - name: 'Enable th wildau proxy for apt'
+    ansible.builtin.copy:
+      src: 'files/apt_proxy.conf'
+      dest: '/etc/apt/apt.conf.d/proxy.conf'
+    become: true
+
+  - name: 'Setup proxy for Docker'
+    import_tasks: docker.yml
+
+  - name: Update apt cache
+    ansible.builtin.apt:
+      update_cache: yes
+      cache_valid_time: 86400
+    become: true
+  when: ping_result.rc == 0

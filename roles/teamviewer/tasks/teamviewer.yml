@@ -1,0 +1,24 @@
+# https://techoverflow.net/2022/08/14/how-to-fix-apt-error-no_pubkey-c5e224500c1289c0/
+# https://github.com/alvistack/ansible-role-teamviewer
+
+- name: 'Install Teamviewer apt key'
+  apt_key:
+    url: 'https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc'
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/teamviewer.gpg
+  become: true
+
+- name: 'Get DEB architecture'
+  ansible.builtin.command: dpkg --print-architecture  # noqa no-changed-when
+  register: deb_architecture
+
+- name: 'Add Teamviewer source repository to sources list'
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/teamviewer.gpg] https://linux.teamviewer.com/deb stable main"
+    filename: teamviewer
+    update_cache: true
+  become: true
+
+- name: 'Install Teamviewer'
+  apt: pkg=teamviewer
+  become: true

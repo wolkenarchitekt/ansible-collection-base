@@ -12,3 +12,4 @@
   ansible.builtin.copy:
     src: 'files/.ipython/'
     dest: '{{ ansible_env.HOME }}/.ipython'
+  become_user: '{{ ansible_user }}'

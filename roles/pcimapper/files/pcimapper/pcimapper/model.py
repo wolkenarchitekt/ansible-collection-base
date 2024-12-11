@@ -11,7 +11,7 @@ class Device(BaseModel):
     dev_int: int = Field(default=None)
     function: str = Field(default=None)
     function_int: int = Field(default=None)
-    class_: str = Field(default=None, alias="class")  # Use alias at the field level
+    class_: str = Field(default=None, alias="class")
     class_id: str = Field(default=None)
     class_id_int: int = Field(default=None)
     vendor: str = Field(default=None)

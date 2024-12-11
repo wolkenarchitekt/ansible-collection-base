@@ -1,0 +1,14 @@
+- name: 'Restart systemd-resolved'
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: systemd-resolved
+    enabled: true
+  become: true
+
+- name: 'Restart docker'
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: docker
+  become: true

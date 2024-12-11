@@ -64,15 +64,15 @@
     group: '{{ ansible_user }}'
   become: true
 
-- name: 'Configure insecure Docker registries'
-  ansible.builtin.template:
-    src: 'templates/etc/docker/daemon.json.j2'
-    dest: '/etc/docker/daemon.json'
-    owner: '{{ ansible_user }}'
-    group: '{{ ansible_user }}'
-    mode: 0644
-  become: true
-  notify: 'Restart Docker'
+#- name: 'Configure insecure Docker registries'
+#  ansible.builtin.template:
+#    src: 'templates/etc/docker/daemon.json.j2'
+#    dest: '/etc/docker/daemon.json'
+#    owner: '{{ ansible_user }}'
+#    group: '{{ ansible_user }}'
+#    mode: 0644
+#  become: true
+#  notify: 'Restart Docker'
 
 # For local mode, this is needed:
 # # usermod -aG docker {{ ansible_user }}
@@ -85,7 +85,7 @@
 - name: 'Configure proxy'
   ansible.builtin.copy:
     src: 'templates/config.json.j2'
-    dest: '{{ ansible_env.HOME }}/.config.json'
+    dest: '{{ ansible_env.HOME }}/.docker/config.json'
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
     mode: 0644
@@ -94,14 +94,23 @@
   when: docker_http_proxy is defined and docker_https_proxy is defined
   notify: 'Restart Docker'
 
-- name: 'Configure data root'
-  ansible.builtin.copy:
-    src: 'templates/daemon.json.j2'
-    dest: '/etc/docker/daeomon.json'
-    owner: '{{ ansible_user }}'
-    group: '{{ ansible_user }}'
-    mode: 0644
-    backup: true
-  become: true
+# Set different data dir. Don't overwrite existing daemon.json
+- block:
+  - name: Read file directly into fact or use empty dict if file does not exist
+    ansible.builtin.set_fact:
+      jsondata: "{{ (lookup('file', '/etc/docker/daemon.json', errors='ignore') | from_json) if lookup('file', '/etc/docker/daemon.json', errors='ignore') else {} }}"
+
+  - name: Update the fact
+    ansible.utils.update_fact:
+      updates:
+        - path: jsondata.data-root
+          value: docker_data_root
+
+  - name: Write updated JSON back to file
+    ansible.builtin.copy:
+      content: "{{ jsondata | to_json }}"
+      dest: /etc/docker/daemon.json
+      owner: root
+      group: root
+      mode: 0644
   when: docker_data_root is defined
-  notify: 'Restart Docker'

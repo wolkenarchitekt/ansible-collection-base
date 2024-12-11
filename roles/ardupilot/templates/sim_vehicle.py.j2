@@ -1,0 +1,3 @@
+#!/bin/sh
+cd {{ ardupilot_src_dir }}
+. {{ ansible_env.HOME }}/venv-ardupilot/bin/activate && Tools/autotest/sim_vehicle.py $@
