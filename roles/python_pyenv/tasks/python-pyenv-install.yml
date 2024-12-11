@@ -3,9 +3,11 @@
     path: '{{ ansible_env.HOME }}/.pyenv/versions/{{ python.version }}'
     get_checksum: false
   register: python_bin
+  become_user: '{{ ansible_user }}'
 
 - name: 'Install Python {{ python.version }}'
   command: 'pyenv install {{ python.version }}'
   when: not python_bin.stat.exists
   environment:
     PATH: "{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}"
+  become_user: '{{ ansible_user }}'
