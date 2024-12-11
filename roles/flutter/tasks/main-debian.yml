@@ -1,0 +1,136 @@
+- name: 'Create Downloads dir'
+  file:
+    path: '{{ ansible_env.HOME }}/Downloads'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: 'Install snapd'
+  apt:
+    pkg:
+      - snapd
+  become: true
+
+- block:
+  - name: 'Install Flutter via Snap'
+    community.general.snap:
+      name: flutter
+      channel: latest/stable
+      classic: true
+    become: true
+
+  - name: 'Download Flutter SDK'
+    command: '/snap/bin/flutter sdk-path'
+    become: true
+    become_user: '{{ ansible_user }}'
+
+  - name: 'Install packages needed for Flutter SDK'
+    apt:
+      pkg:
+        - clang
+        - cmake
+        - ninja-build
+        - pkg-config
+        - libgtk-3-dev
+        - liblzma-dev
+    become: true
+
+  - name: 'Use flutter stable channel'
+    command: /snap/bin/flutter channel stable
+
+  - name: 'Upgrade flutter'
+    command: /snap/bin/flutter upgrade
+#  when: ansible_distribution == 'Ubuntu'
+
+#- block:
+#  - name: 'Install packages for Flutter'
+#    apt:
+#      pkg:
+#        - clang
+#        - ninja-build
+#        - libgtk-3-dev
+#    become: true
+#
+#  - name: 'Check if Flutter is installed'
+#    stat:
+#      path: '{{ flutter_sdk_dir }}'
+#    register: flutter_sdk_installed
+#
+#  - block:
+#    - name: 'Check if Flutter SDK was downloaded'
+#      stat:
+#        path: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}.tar.xz'
+#      register: flutter_sdk_downloaded
+#
+#    - name: 'Download Flutter SDK'
+#      get_url:
+#        url: 'https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/{{ flutter_sdk_version }}.tar.xz'
+#        dest: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}.tar.xz'
+#      become: true
+#      become_user: '{{ ansible_user }}'
+#      when: not flutter_sdk_downloaded.stat.exists
+#
+#    - name: 'Create flutter download dir'
+#      file:
+#        path: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}'
+#        state: directory
+#        owner: '{{ ansible_user }}'
+#        group: '{{ ansible_user }}'
+#
+## # https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.16.5-stable.tar.xz
+#
+#    - name: 'Check if Flutter SDK was extracted '
+#      stat:
+#        path: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}/flutter'
+#      register: flutter_extracted
+#
+#    - name: 'Extract Flutter SDK'
+#      unarchive:
+#        remote_src: true
+#        src: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}.tar.xz'
+#        dest: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}'
+#      when: not flutter_extracted.stat.exists
+#
+#    - name: Copy Flutter SDK files
+#      copy:
+#        remote_src: True
+#        src: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}/flutter/'
+#        dest: '{{ flutter_sdk_dir }}'
+#        owner: '{{ ansible_user }}'
+#        group: '{{ ansible_user }}'
+#      become: true
+#
+#    - name: Remove old files
+#      file:
+#        path: '{{ ansible_env.HOME }}/Downloads/{{ flutter_sdk_version }}/flutter/'
+#        state: absent
+#    when: not flutter_sdk_installed.stat.exists
+#
+#  - name: 'Create .bashrc.d dir'
+#    file:
+#      dest: '{{ ansible_env.HOME }}/.bashrc.d'
+#      state: directory
+#      owner: '{{ ansible_user }}'
+#      group: '{{ ansible_user }}'
+#
+#  - name: 'Copy flutter bashrc'
+#    ansible.builtin.copy:
+#      src: 'files/.bashrc.d/flutter.sh'
+#      dest: '{{ ansible_env.HOME }}/.bashrc.d/flutter.sh'
+#      owner: '{{ ansible_user }}'
+#      group: '{{ ansible_user }}'
+#      mode: 0644
+#
+#  tags: flutter_sdk
+#  when: ansible_distribution == 'Debian'
+#
+#
+## git clone https://github.com/flutter/flutter.git $HOME/development/flutter
+##- block:
+##  when: deb_architecture.stdout == "arm64"
+#
+#- name: 'Install Chromium'
+#  apt:
+#    pkg:
+#      - chromium-browser
+#  become: true

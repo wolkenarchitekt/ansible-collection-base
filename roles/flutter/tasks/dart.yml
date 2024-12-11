@@ -1,0 +1,47 @@
+- name: 'Install Dart apt key'
+  apt_key:
+    url: 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/dart.gpg
+  become: true
+
+- name: 'Get DEB architecture'
+  ansible.builtin.command: dpkg --print-architecture  # noqa no-changed-when
+  register: deb_architecture
+
+- block:
+  - name: 'Add dart source repository to sources list'
+    apt_repository:
+      repo: "deb [signed-by=/etc/apt/trusted.gpg.d/dart.gpg arch={{ deb_architecture.stdout }}] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main"
+      filename: dart
+      update_cache: true
+    become: true
+
+  - name: 'Install Dart'
+    apt: pkg=dart
+    become: true
+  when: deb_architecture.stdout == "amd64"
+
+- block:
+  - name: 'Download Dart'
+    get_url:
+      url: 'https://storage.googleapis.com/dart-archive/channels/stable/release/{{ dart_version }}/sdk/dartsdk-linux-arm64-release.zip'
+      dest: '{{ ansible_env.HOME }}/Downloads/dartsdk-linux-arm64-release.zip'
+    become: true
+    become_user: '{{ ansible_user }}'
+
+  - name: 'Create Dart SDK dir'
+    file:
+      path: '/usr/lib/dart/'
+      state: directory
+      owner: '{{ ansible_user }}'
+      group: '{{ ansible_user }}'
+    become: true
+
+  - name: 'Extract Dart SDK'
+    unarchive:
+      src: '{{ ansible_env.HOME }}/Downloads/dartsdk-linux-arm64-release.zip'
+      dest: '/usr/lib/'
+      remote_src: true
+    become: true
+  when: deb_architecture.stdout == "arm64"

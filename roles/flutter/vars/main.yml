@@ -1,0 +1,4 @@
+# https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.16.5-stable.tar.xz
+flutter_sdk_version: flutter_linux_3.24.4-stable
+flutter_sdk_dir: /usr/lib/flutter
+dart_version: 3.2.5

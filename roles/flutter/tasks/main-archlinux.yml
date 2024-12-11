@@ -1,0 +1,20 @@
+#- name: 'Install flutter from aur'
+#  include_tasks: arch-aur-install.yml
+#  loop:
+#    - 'flutter'
+#    - flutter-engine-linux
+#    - flutter-target-linux
+#    - flutter-engine-android
+#    - flutter-target-android
+#    - flutter-engine-web
+#    - flutter-target-web
+#    - flutter-engine-linux
+#    - flutter-engine-android
+#    - flutter-engine-web
+
+- name: 'Install Flutter via Snap'
+  community.general.snap:
+    name: flutter
+    channel: latest/stable
+    classic: true
+  become: true
